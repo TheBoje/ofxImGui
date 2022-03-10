@@ -14,11 +14,11 @@ static const int kImGuiMargin = 10;
 
 namespace ofxImGui
 {
-    
+
     bool VectorCombo(const char* label, int* currIndex, std::vector<std::string>& values);
     bool VectorListBox(const char* label, int* currIndex, std::vector<std::string>& values);
 
-    
+
 	struct WindowOpen
 	{
 		std::stack<std::vector<std::string>> usedNames;
@@ -33,9 +33,9 @@ namespace ofxImGui
 		ofVec2f windowPos;
 		ofVec2f windowSize;
 		bool lockPosition;
-		
-		bool mouseOverGui;
+
 		bool windowBlock;
+		bool mouseOverGui;
 		int treeLevel;
 
 		ofRectangle totalBounds;
@@ -126,23 +126,23 @@ namespace ofxImGui
 #endif
 }
 
-static ImTextureID GetImTextureID(const ofTexture& texture)
+[[maybe_unused]] static ImTextureID GetImTextureID(const ofTexture& texture)
 {
     return (ImTextureID)(uintptr_t)texture.texData.textureID;
 }
 
-static ImTextureID GetImTextureID(const ofBaseHasTexture& hasTexture)
-{
-    
-    return GetImTextureID(hasTexture.getTexture());
-}
+// static ImTextureID GetImTextureID(const ofBaseHasTexture& hasTexture)
+// {
 
-static ImTextureID GetImTextureID(GLuint glID)
-{
-    
-    return (ImTextureID)(uintptr_t)glID;
+//     return GetImTextureID(hasTexture.getTexture());
+// }
 
-}
+// static ImTextureID GetImTextureID(GLuint glID)
+// {
+
+//     return (ImTextureID)(uintptr_t)glID;
+
+// }
 
 //--------------------------------------------------------------
 template<typename ParameterType>

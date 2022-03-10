@@ -165,7 +165,7 @@ bool ofxImGui::BeginTree(const std::string& name, Settings& settings)
 void ofxImGui::EndTree(Settings& settings)
 {
 	ImGui::TreePop();
-	
+
 	settings.treeLevel = std::max(0, settings.treeLevel - 1);
 
 	// Clear the list of names from the stack.
@@ -483,7 +483,7 @@ bool ofxImGui::AddCombo(ofParameter<int>& parameter, std::vector<std::string> la
 	{
 		for (size_t i = 0; i < labels.size(); ++i)
 		{
-			bool selected = (i == tmpRef);
+			bool selected = (i == (size_t)tmpRef);
 			if (ImGui::Selectable(labels[i].c_str(), selected))
 			{
 				tmpRef = i;
@@ -867,4 +867,3 @@ bool ofxImGui::VectorListBox(const char* label, int* currIndex, std::vector<std:
     return ImGui::ListBox(label, currIndex, vector_getter,
                    static_cast<void*>(&values), values.size());
 }
-
