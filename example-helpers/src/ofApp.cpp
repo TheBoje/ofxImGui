@@ -11,8 +11,8 @@ void ofApp::setup()
 
 	this->stepper = 0.0f;
 
-	// Gui
-	this->gui.setup();
+    // Gui
+    gui.setup(nullptr, true, ImGuiConfigFlags_None, true);
 	this->guiVisible = true;
 }
 
@@ -180,7 +180,9 @@ bool ofApp::imGui()
 
 	this->gui.begin();
 	{
-		if (ofxImGui::BeginWindow("Helpers", mainSettings, false))
+        static bool bCollapse = false;
+        //if (ImGui::Begin("Helpers", &bshow))
+        if (ofxImGui::BeginWindow("Helpers", mainSettings, ImGuiWindowFlags_NoCollapse, &bCollapse))
 		{
 			ImGui::Text("%.1f FPS (%.3f ms/frame)", ofGetFrameRate(), 1000.0f / ImGui::GetIO().Framerate);
 
@@ -225,8 +227,29 @@ bool ofApp::imGui()
 
 				ofxImGui::EndTree(mainSettings);
 			}
+
+			// Some work has yet to be done on the Helpers.
+			// For example, the line below causes a crash
+			// ofxImGui::AddGroup(this->render, mainSettings);
 		}
-		ofxImGui::EndWindow(mainSettings);
+        ofxImGui::EndWindow(mainSettings);
+        //ImGui::End();
+
+		// 2nd window
+		auto altSettings = ofxImGui::Settings();
+		if (ofxImGui::BeginWindow("2nd Helpers", altSettings, ImGuiWindowFlags_NoCollapse, &bCollapse))
+		{
+			ImGui::TextWrapped("%s", "The helper settings return information about the window state : the white box around this window shows how to use them.\n"\
+									 "Also, when you reopen this application, window positions and sizes should restore to their last state before exiting." );
+		}
+		ofxImGui::EndWindow(altSettings);
+
+		// Draw a rectangle to check if the returned values are correct
+		#define MY_MARGING 10
+		ofPushStyle();
+		ofNoFill();
+		ofDrawRectRounded(altSettings.windowPos-ofVec2f(MY_MARGING,MY_MARGING), altSettings.windowSize.x+2*MY_MARGING, altSettings.windowSize.y+2*MY_MARGING, MY_MARGING);
+		ofPopStyle();
 
 		if (this->preview)
 		{

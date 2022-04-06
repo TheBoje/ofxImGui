@@ -6,7 +6,8 @@
 #include "ofTexture.h"
 #include "ofGLBaseTypes.h"
 #include "imgui.h"
-#include <stack>
+#include <stack> // Needed for Arch Linux
+
 static const int kImGuiMargin = 10;
 
 
@@ -51,7 +52,7 @@ namespace ofxImGui
 
 	void SetNextWindow(Settings& settings);
 	bool BeginWindow(ofParameter<bool>& parameter, Settings& settings, bool collapse = true);
-	bool BeginWindow(const std::string& name, Settings& settings, bool collapse = true, bool * open = nullptr);
+	bool BeginWindow(const std::string& name, Settings& settings, bool collapsible = true, bool * open = nullptr);
 	bool BeginWindow(const std::string& name, Settings& settings, ImGuiWindowFlags flags, bool * open = nullptr);
 	void EndWindow(Settings& settings);
 
@@ -74,7 +75,7 @@ namespace ofxImGui
 	bool AddParameter(ofParameter<ofVec2f>& parameter);
 	bool AddParameter(ofParameter<ofVec3f>& parameter);
 	bool AddParameter(ofParameter<ofVec4f>& parameter);
-
+	bool AddParameter(ofParameter<ofColor>& parameter, bool alpha = true);
 	bool AddParameter(ofParameter<ofFloatColor>& parameter, bool alpha = true);
 
 	bool AddParameter(ofParameter<std::string>& parameter, size_t maxChars = 255, bool multiline = false);
